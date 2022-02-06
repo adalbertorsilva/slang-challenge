@@ -25,5 +25,31 @@ describe("User Sessions", () => {
       expect(userSessionKeys).toHaveLength(distinctUserIds.length);
       expect(userSessionKeys).toIncludeAllMembers(distinctUserIds);
     });
+
+    it("should have an started_at attibute", () => {
+      const userSessionKeys = Object.keys(result.user_sessions);
+      const sessionActivities = [];
+
+      userSessionKeys.forEach((key) => {
+        sessionActivities.push(...result.user_sessions[key]);
+      });
+
+      sessionActivities.forEach((sessionActivity) => {
+        expect(sessionActivity).toHaveProperty("started_at");
+      });
+    });
+
+    it("should order session activities by started_at attibute", () => {
+      const userSessionKeys = Object.keys(result.user_sessions);
+      const sessionReport = result.user_sessions[userSessionKeys[0]];
+      let actualStartedAt;
+      let nextStartedAt;
+
+      for (i = 0; i < sessionReport.length; i++) {
+        actualStartedAt = sessionReport[i].started_at;
+        nextStartedAt = sessionReport[i + 1] ? sessionReport[i + 1].started_at : null;
+        if (nextStartedAt) expect(new Date(actualStartedAt)).toBeBefore(new Date(nextStartedAt));
+      }
+    });
   });
 });
