@@ -1,0 +1,42 @@
+{
+  "name": "slang-challenge",
+  "version": "1.0.0",
+  "description": "slang challenge",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "NODE_ENV=test jest --coverage"
+  },
+  "author": "Adalberto Turiel Silva",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "jest": "^27.5.0",
+    "jest-extended": "^2.0.0",
+    "nock": "^13.2.4"
+  },
+  "jest": {
+    "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.test.js?$",
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "node"
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/src/test-config/",
+      "<rootDir>/src/test/",
+      "<rootDir>/src/utils/"
+    ],
+    "coverageReporters": [
+      "text"
+    ],
+    "globalSetup": "./src/test-config/jest-suite-setup.js",
+    "setupFilesAfterEnv": [
+      "jest-extended/all"
+    ]
+  }
+}
